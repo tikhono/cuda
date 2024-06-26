@@ -72,7 +72,7 @@ void runCholesky() {
 
     // Host matrices
     vector<int> h_A(N * N);
-    vector<int> h_L(N * N, 1); // Fill h_L with 0s
+    vector<int> h_L(N * N, 0); // Fill h_L with 0s
 
     /* h_A Preset 1 (3x3): */
     /* h_A[0] = 4; h_A[1] = 12; h_A[2] = -16;
@@ -203,7 +203,7 @@ __global__ void choleskyDiag(int* A, int* L, int N, int colNum) {
 __global__ void choleskyColumn(int* A, int* L, int N, int colNum) {
    
     // Compute each thread's global row and column index
-   // int row = blockIdx.y * blockDim.y + threadIdx.y;
+    int row = blockIdx.y * blockDim.y + threadIdx.y;
     int col = blockIdx.x * blockDim.x + threadIdx.x;
 
    // L[col] = 2;
